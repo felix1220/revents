@@ -8,16 +8,20 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { setupStore } from './store/configureStore';
 import { loadEvents } from './features/events/eventActions';
+import { UserProvider } from './contexts/user.context';
 
 const store = setupStore();
 
 store.dispatch(loadEvents());
 console.log('State is => ', store.getState());
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <Provider store={store}>
      <BrowserRouter>
-         <App />
+        <UserProvider>
+            <App />
+        </UserProvider>  
       </BrowserRouter>
     </Provider>
    

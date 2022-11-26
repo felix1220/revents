@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Container, Menu } from "semantic-ui-react";
 import { NavLink, useNavigate } from 'react-router-dom'
 import SignedOutMenu from "./SignedOutMenu";
 import SignedInMenu from "./SignedInMenu";
+import { UserContext } from "../../contexts/user.context";
 
 export default function NavBar(){
+    const { currentUser } = useContext(UserContext);
     const [authenticated, setAuthenticated ] = useState(false);
     const navigate = useNavigate();
 

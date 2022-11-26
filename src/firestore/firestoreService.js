@@ -1,4 +1,4 @@
-import firebase from '../config/firebase';
+/*import firebase from '../config/firebase';
 
 const db = firebase.firestore();
 
@@ -15,3 +15,4 @@ export function dataFromSnapshot(snapshot) {
 export function getEventsFromFirestore(observer){
     return db.collection('Donuts').onSnapshot(observer);
 }
+*/
