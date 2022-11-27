@@ -24,12 +24,12 @@ export default function NavBar(){
                 <Menu.Item as={NavLink} to='events' name='Events' />
                 <Menu.Item as={NavLink} to='sandbox' name='Sandbox' />
                 <Menu.Item as={NavLink} to='signin' name='Sign Up Form' />
-                { authenticated && 
+                { currentUser && 
                 <Menu.Item as={NavLink} to='createEvent'>
                     <Button positive inverted content='Create Event' />
                 </Menu.Item>
                 }
-                { authenticated ?<SignedInMenu signedOut={handleSignOut} /> :   <SignedOutMenu setAuthenticated={setAuthenticated}/>}
+                { currentUser ?<SignedInMenu signedOut={handleSignOut} /> :   <SignedOutMenu setAuthenticated={setAuthenticated}/>}
             </Container>
         </Menu>
     )
