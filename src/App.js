@@ -27,7 +27,7 @@ function App() {
            <Container className='main'>
             <Routes>
             
-            <Route exact path='/' element={<HomePage />} />
+            <Route exact path='/' element={<SignIn />} />
              
                <Route exact path='events' element={<EventDashboard />} />
                <Route exact path='sandbox' element={<Sandbox />} />

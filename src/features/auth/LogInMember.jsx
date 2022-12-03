@@ -4,7 +4,7 @@ import { createAuthUserWithEmailPassword, createUserDocumentFromAuth,
     signInWithGooglePopup, signInAuthUserWithEmailPassword } from '../../config/firebase';
 import { FormInput } from '../formInput/FormInput';
 import { Button } from "../../layout/Button";
-import { UserContext } from "../../contexts/user.context";
+//import { UserContext } from "../../contexts/user.context";
 import './LogInMember.styles.css';
 
 
@@ -18,7 +18,7 @@ const defaultFormFields = {
 export default function LogInMember() {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
-    const { setCurrentUser } = useContext(UserContext);
+    //const { setCurrentUser } = useContext(UserContext);
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
@@ -27,8 +27,8 @@ export default function LogInMember() {
         event.preventDefault();
         
         try {
-            const { user } = await signInAuthUserWithEmailPassword(email, password)
-            setCurrentUser(user);
+             await signInAuthUserWithEmailPassword(email, password)
+           // setCurrentUser(user);
             resetFormFields();
 
         } catch(e) {
@@ -44,8 +44,9 @@ export default function LogInMember() {
         setFormFields({...formFields, [name]: value});
     }
     const signInWithGoogleUser = async() => {
-        const { user }= await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
+        //setCurrentUser(user);
+        //await createUserDocumentFromAuth(user);
     }
     return (
         <div className='sign-up-container'>

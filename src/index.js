@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { setupStore } from './store/configureStore';
 import { loadEvents } from './features/events/eventActions';
 import { UserProvider } from './contexts/user.context';
+import { ProductsProvider } from './contexts/products.context';
 
 const store = setupStore();
 
@@ -20,7 +21,9 @@ root.render(
     <Provider store={store}>
      <BrowserRouter>
         <UserProvider>
+           <ProductsProvider>
             <App />
+           </ProductsProvider>
         </UserProvider>  
       </BrowserRouter>
     </Provider>

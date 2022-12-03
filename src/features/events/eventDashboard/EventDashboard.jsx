@@ -4,6 +4,7 @@ import EventList from "./EventList";
 import { useSelector } from "react-redux";
 import LoadingComponent from "../../../layout/LoadingComponent";
 import EventFilters from "./EventFilters";
+import Shop from "../../shop/shop";
 //import { dataFromSnapshot, getEventsFromFirestore } from "../../../firestore/firestoreService";
 
 export default function EventDashboard(){
@@ -20,13 +21,18 @@ export default function EventDashboard(){
     if(loading) return <LoadingComponent />
     
     return (
-        <Grid>
-            <Grid.Column width={10}>
-               <EventList events={events} />
-            </Grid.Column>
-            <Grid.Column width={6}>
-               <EventFilters />
-            </Grid.Column>
-        </Grid>
+        <div>
+             <Shop />
+             <Grid>
+                <Grid.Column width={10}>
+                <EventList events={events} />
+                </Grid.Column>
+                <Grid.Column width={6}>
+                <EventFilters />
+                </Grid.Column>
+            </Grid>
+           
+        </div>
+       
     )
 }
