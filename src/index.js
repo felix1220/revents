@@ -9,7 +9,8 @@ import { Provider } from 'react-redux';
 import { setupStore } from './store/configureStore';
 import { loadEvents } from './features/events/eventActions';
 import { UserProvider } from './contexts/user.context';
-import { ProductsProvider } from './contexts/products.context';
+import { CategoriesProvider } from './contexts/categories.context';
+import { CartProvider } from './contexts/cart.context';
 
 const store = setupStore();
 
@@ -21,9 +22,11 @@ root.render(
     <Provider store={store}>
      <BrowserRouter>
         <UserProvider>
-           <ProductsProvider>
-            <App />
-           </ProductsProvider>
+           <CategoriesProvider>
+            <CartProvider>
+                <App />
+            </CartProvider>
+           </CategoriesProvider>
         </UserProvider>  
       </BrowserRouter>
     </Provider>
