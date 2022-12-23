@@ -1,15 +1,18 @@
-import { Component } from 'react'
+import { Component, useContext } from 'react'
 import { Button } from "semantic-ui-react";
 import { Directions } from './directions';
 import cuid from "cuid";
+import { PuzzleContext } from "../../contexts/puzzle.context";
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 export default class MockComponent extends Component {
-
+    static contextType = PuzzleContext
     
     constructor() {
+        
         super();
-
+        //const { puzzles, puzzleId, setPuzzle } = useContext(PuzzleContext);
+        
         this.state = {
             positions:[],
             emojis: [],
@@ -21,6 +24,9 @@ export default class MockComponent extends Component {
             highlights:[],
             mockSelectedEmojis:[],
             timerStarted: false,
+            puzzle: null,
+            name:'',
+            puzzleType:''
         }
 
     }
@@ -690,10 +696,12 @@ export default class MockComponent extends Component {
         let scaleFactor = 1.3;
         let xPos = 30;
         let yPos = 30;
+        let deltaX = 0;
         ctx2.scale(scaleFactor, scaleFactor);
         this.state.mockSelectedEmojis.forEach((val,index) => {
             this.drawCircleNumber(xPos, yPos, index+1);
             val.forEach((item) => {
+                //debugger;
                 console.log('the item is => ', item);
                 const pos = this.state.positions.find( f => f.ID === item);
                 const emojiModel = this.state.emojis.find(em => em.ID === pos.EmojiID);
@@ -703,10 +711,22 @@ export default class MockComponent extends Component {
                  xPos += 20;
                 }
             });
+            deltaX = xPos + 30 > deltaX ? xPos + 30 : deltaX
+            yPos += 30;
+            xPos = 30;
+            if(index > 0 && index % 4 === 0) {
+                yPos = 30;
+                xPos = deltaX;
+            }
           
         })
     }
     componentDidMount() {
+        const puzzelC = this.context;
+        const puzzleId = puzzelC.puzzleId
+        const puzzle = puzzelC.puzzles[puzzleId];
+        const twoD = puzzle.nested.map(m => m.emojiList);
+        //debugger;
         const ctx = this.canvas.getContext('2d');
         this.loadCanvasMouseEvents(ctx);
         //this.loadDependantJsons();
@@ -714,9 +734,7 @@ export default class MockComponent extends Component {
         this.setState(
             () => {
                 return {
-                    mockSelectedEmojis:[
-                       [646,716, 786, 856]
-                    ]
+                    mockSelectedEmojis: twoD
                 }
             },
             () => {
@@ -726,11 +744,28 @@ export default class MockComponent extends Component {
     }
 
     render() {
+        const puzzelC = this.context;
+        const puzzleId = puzzelC.puzzleId
+        const puzzle = puzzelC.puzzles[puzzleId];
         const {width, height} = this.props
         const widthSm = width - 200;
         const heightSm = height - 550;
+        //debugger;
+        const layerStyle = {
+            float: 'left',
+            width: '10%'
+        };
         return (
+            
                 <div>
+                     <div>
+                        <div>
+                            <h2>{puzzle.name}</h2>
+                        </div>
+                        <div >
+                            ({puzzle.type})
+                        </div>
+                    </div>
                     <div>
                         <canvas width={widthSm} height={heightSm} ref={node => (this.canvasSm = node)} />
                     </div>

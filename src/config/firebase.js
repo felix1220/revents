@@ -47,6 +47,7 @@ export const getCategoriesAndDocuments = async () => {
     const collectionRef = collection(db, 'categories');
     const q = query(collectionRef);
     const querySnapShot = await getDocs(q);
+    
     const categoryMap = querySnapShot.docs.reduce((acc, docSnapshot) => {
         const { title, items } = docSnapshot.data();
         acc[title.toLowerCase()] = items;
@@ -55,6 +56,18 @@ export const getCategoriesAndDocuments = async () => {
 
     return categoryMap
 
+}
+export const getPuzzlesAndDocuments = async () => {
+    const collectionRef = collection(db, 'puzzlesCollection');
+    const q = query(collectionRef);
+    const querySnapShot = await getDocs(q);
+    const categoryMap = querySnapShot.docs.reduce((acc, docSnapshot) => {
+        //const { title, items } = docSnapshot.data();
+        acc[docSnapshot.id] = docSnapshot.data();
+        return acc;
+    },{});
+
+    return categoryMap
 }
 export const createUserDocumentFromAuth = async(userAuth, additionalInfo = {}) => {
     const userDocRef = doc(db, 'users', userAuth.uid);

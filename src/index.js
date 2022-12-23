@@ -11,6 +11,7 @@ import { loadEvents } from './features/events/eventActions';
 import { UserProvider } from './contexts/user.context';
 import { CategoriesProvider } from './contexts/categories.context';
 import { CartProvider } from './contexts/cart.context';
+import { PuzzleProvider } from './contexts/puzzle.context';
 
 const store = setupStore();
 
@@ -24,7 +25,9 @@ root.render(
         <UserProvider>
            <CategoriesProvider>
             <CartProvider>
-                <App />
+             <PuzzleProvider>
+               <App />
+             </PuzzleProvider>
             </CartProvider>
            </CategoriesProvider>
         </UserProvider>  

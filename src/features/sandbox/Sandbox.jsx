@@ -13,7 +13,7 @@ export default function Sanbox() {
 
     return(
         <div>
-           
+            <MockComponent width='700' height='700'></MockComponent>
             <h1>Testing 123</h1>
             <h3>The data is: {data} </h3>
             <Button content='Increment' color='green' onClick={(e) => 
